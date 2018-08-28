@@ -62,15 +62,15 @@ class Books extends React.Component {
                         return;
                     that.state.SearchBooks.forEach(function (book, index) {
 
-                        {
-                            arr.push(<div  class="col-md-10" style={{paddingLeft:'0px'}} >
+
+                            arr.push(<div  className="col-md-10" style={{paddingLeft:'0px'}} key={index} >
                                 {
                                     <Card key={index} New={false} Data={book} />
 
 
                                 }
                             </div>)
-                        }
+
 
 
                     });
@@ -79,26 +79,26 @@ class Books extends React.Component {
                 that.setState({books:arr});
 
             })
-            .catch(function (error) {
+            .catch(function (error,response) {
+
                 console.log(error);
             })
     }
     //-----------------------------------------------------------------
 
     handleAddBook(e){
-        let that = this;
 
         let arr = [];
-        {
-            arr.push(<div  class="col-md-10" style={{paddingLeft:'0px'}}>
+
+            arr.push(<div  className="col-md-10" style={{paddingLeft:'0px'}} key={this.state.IdNewBook}>
                 {
 
-                    <div class="parent">
+                    <div className="parent" >
                         <Card  New={true} key={this.state.IdNewBook} CountId={this.state.IdNewBook} />
                     </div>
                 }
-            </div>)
-        }
+            </div>);
+
 
         this.setState({ IdNewBook: this.state.IdNewBook + 1 });
 
@@ -110,17 +110,17 @@ class Books extends React.Component {
 
     render() {
         return (
-            <div className="col-md-offset-2 col-md-9">
+            <div className="col-md-offset-2 col-md-9 " style={{ marginTop:'10px'}}>
                 <div className="search ">
                     <div className="col-md-7">
-                    <input  type="search" class="form-control  serachBook " value={this.state.value}  onChange={this.handleChange}
+                    <input  type="search" className="form-control  serachBook " value={this.state.value}  onChange={this.handleChange}
                            placeholder="Search Here Books" />
                     </div>
                         <div className="col-md-4">
-                    <button class="btn btn-primary " type="button" onClick={this.handleInputSubmit.bind(this)}
+                    <button className="btn btn-primary " type="button" onClick={this.handleInputSubmit.bind(this)}
                             > <span className="glyphicon glyphicon-search"></span> Search</button>
 
-                    <button class="btn btn-primary" type="button"  onClick={this.handleAddBook.bind(this)}
+                    <button className="btn btn-primary" type="button"  onClick={this.handleAddBook.bind(this)}
                             style={{ marginLeft:'10px'}} > <span className="glyphicon glyphicon-plus"></span>Add A New Book
 
 

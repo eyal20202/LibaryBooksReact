@@ -1,9 +1,8 @@
 import React from 'react'
-import $ from "jquery";
 import logobook from './Images/book.png';
 
 class Card extends React.Component {
-    // Book.volu
+
     constructor(props) {
         super(props);
         //-----------------------------------------------------------------
@@ -14,7 +13,7 @@ class Card extends React.Component {
             CardId: this.props.New === true? this.props.CountId :this.props.Data.id,
           GoodDate:false,Save:true, up:'',
             temp:'empty',tempDate:'empty',tempTitle:'empty'
-            , ErrorEmpty: true, valid:true , AddNewBook: this.props.New ==true? true: false};
+            , ErrorEmpty: true, valid:true , AddNewBook: this.props.New === true? true: false};
 
     }
     //-------save----------------------------------------------------------
@@ -25,9 +24,10 @@ class Card extends React.Component {
 
 
 
-        this.setState({GoodDate:isValidDate(this.state.tempDate)}), () => {
-            this.state.GoodDate
-        };
+        this.setState({GoodDate:isValidDate(this.state.tempDate)});
+        //     , () => {
+        //     this.state.GoodDate;
+        // };
 
 
         if (EmptyNew(this) && isValidDate(this.state.tempDate)) {
@@ -86,7 +86,7 @@ class Card extends React.Component {
 
         var el = document.getElementById( this.state.CardId);
         el=el.parentNode;
-if(this.props.New==true)
+if(this.props.New===true)
     el=el.parentElement;
 
         el.parentNode.removeChild( el );
@@ -132,10 +132,10 @@ if(this.props.New==true)
                             </div>
                             <div style={{color:'green',margin:'17px'}} hidden={this.state.valid}>The Change Is Saved</div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-default" data-dismiss={this.state.valid==false?"modal":null}
+                                <button type="button" className="btn btn-default" data-dismiss={this.state.valid===false?"modal":null}
 
                                         onClick={this.handleInputSubmit.bind(this)}>
-                                    {this.state.valid==false? 'Exit' : 'Submit' }
+                                    {this.state.valid===false? 'Exit' : 'Submit' }
                                 </button>
 
                                 <button type="button" className="btn btn-default" data-dismiss="modal"
@@ -178,7 +178,7 @@ if(this.props.New==true)
                         <hr/>
 
                     <div >
-                        <span class="glyphicon glyphicon-user blue"></span>
+                        <span className="glyphicon glyphicon-user blue"></span>
                         <span style={{  textDecoration: 'underline'}}>  Author Name:</span>
                         <span className="author" style={{  fontWeight: "bold",marginLeft:'5px'}}>{this.state.AuthorName}</span></div>
 
@@ -209,8 +209,8 @@ if(this.props.New==true)
                     <button type="button" className="btn btn-info "    style={{borderRadius: '10px',float:'right'}}
                             onClick={ this.handleRemoveBook.bind(this) }>
                         <span className="glyphicon glyphicon-remove"></span> Remove
-
                     </button>
+
 </div>
                 </div>
 
@@ -224,7 +224,7 @@ if(this.props.New==true)
 //-----------------------------------------------------------------
 
 function EmptyNew(e){
-    if (e.state.temp.length == 0 || e.state.tempTitle.length == 0 || e.state.tempDate.length == 0)
+    if (e.state.temp.length === 0 || e.state.tempTitle.length === 0 || e.state.tempDate.length === 0)
     {
         e.setState({ErrorEmpty: false});
 
@@ -251,19 +251,20 @@ function isValidDate(dateString)
     var year = parseInt(parts[0], 10);
 
     // Check the ranges of month and year
-    if(year < 1000 || year > 3000 || month == 0 || month > 12)
+    if(year < 1000 || year > 3000 || month === 0 || month > 12)
         return false;
 
     var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
     // Adjust for leap years
-    if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+    if(year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
         monthLength[1] = 29;
 
-    // Check the range of the day
-    return true;
-    return day > 0 && day <= monthLength[month - 1];
-};
+        // Check the range of the day
+        return true;
+    }
+   return day > 0 && day <= monthLength[month - 1];
+}
 ///==============================================================================================
 function uppercase(str)
 {
@@ -283,7 +284,7 @@ function removeSpecials(str) {
 
     var res = "";
     for(var i=0; i<lower.length; ++i) {
-        if(lower[i] != upper[i] || lower[i].trim() === '')
+        if(lower[i] !== upper[i] || lower[i].trim() === '')
             res += str[i];
     }
     return res;
